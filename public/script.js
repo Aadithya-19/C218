@@ -1,8 +1,12 @@
 const socket = io("/");
 
-const user = prompt("Enter your name");
-var peer = new Peer(undefined,{path:"/peerjs", host:"/", port:"443"})
+var peer = new Peer(undefined, {
+    path: "/peerjs",
+    host: "/",
+    port: "443",
+});
 
+const user = prompt("Enter your name");
 
 $(function () {
     $("#show_chat").click(function () {
@@ -31,12 +35,16 @@ $(function () {
     })
 
 })
-peer.on("open", (ID)=>{
-    {socket.emit("join-room",ROOM_ID,id,user)}
-})
-socket.on("createMessage", (message) => {
+
+peer.on("open", (id) => {
+    socket.emit("join-room", ROOM_ID, id, user);
+});
+
+socket.on("createMessage", (message, userName) => {
     $(".messages").append(`
         <div class="message">
+            <b><i class="far fa-user-circle"></i> <span> ${userName === user ? "me" : userName
+        }</span> </b>
             <span>${message}</span>
         </div>
     `)
