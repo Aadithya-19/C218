@@ -36,5 +36,4 @@ io.on("connection", (socket) => {
         io.emit("createMessage", message);
     });
 });
-
-server.listen(3030);
+server.listen(process.env.PORT || 3030)
